@@ -15,7 +15,8 @@ class CreateTriggerStok extends Migration
     {
         DB::unprepared('
                 CREATE TRIGGER kurangi_stok after INSERT ON sales
-                FOR EACH ROW BEGIN
+                FOR EACH ROW
+                BEGIN
                 UPDATE products
                 SET stok = stok - NEW.jumlah
                 WHERE
