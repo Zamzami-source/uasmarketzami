@@ -1,0 +1,77 @@
+@extends('template._master')
+
+@section('title', 'Produk')
+
+@section('content')
+
+
+
+    <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+        <div class="container">
+            <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+                <h2 class="az-content-label mg-b-12 mt-4">Produk</h2>
+                <p class="mg-b-20">Data Produk</p>
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        {{-- <button type="button" class="btn btn-danger" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+                    </div>
+                @endif
+
+                <div class="text-right">
+                    <a class="btn btn-primary" href="/produk/create">Tambah
+                        Produk</a>
+                </div>
+                <hr class="mg-y-30">
+
+                <div class="table-responsive">
+                    <table class="table table-striped mg-b-0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Produk</th>
+                                <th>Jenis Produk</th>
+                                <th>Stok</th>
+                                <th>Harga</th>
+                                <th>Deskripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $no = 1;
+                            @endphp
+                            @foreach ($data as $row)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $row->nama_produk }}</td>
+                                    <td>{{ $row->jenis_produk }}</td>
+                                    <td>{{ $row->stok }}</td>
+                                    <td>{{ $row->harga }}</td>
+                                    <td>{{ $row->deskripsi }}</td>
+                                    <td>
+                                        <form action="/produk/{{ $row->id }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Yakin ingin menghapus?')">
+                                                hapus
+                                            </button>
+                                            <a href="/produk/{{ $row->id }}/edit" class="btn btn-warning">
+                                                edit
+                                            </a>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <br>
+                    {{ $data->links() }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
