@@ -19,8 +19,6 @@ class CreateSalesTable extends Migration
             $table->foreign('produk_id')->references('id')->on('products');
             $table->string('nama_pembeli', 100);
             $table->integer('jumlah')->length(12)->unsigned();
-            $table->integer('bayar')->length(12)->unsigned();
-            $table->integer('total_bayar')->length(12)->unsigned();
             $table->timestamps();
         });
     }
